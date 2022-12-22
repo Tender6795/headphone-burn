@@ -38,7 +38,6 @@ export const CountDown = ({ hours = 0, minutes = 0, seconds = 0 , startPauseMusi
   })
 
 const pauseHandle = () =>{
-    // startPauseMusic(paused)
     setPaused(prev => !prev)
 }
   return (
