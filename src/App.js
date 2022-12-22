@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useRef, useState } from 'react'
+import IconButton from '@material-ui/core/IconButton'
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline'
+import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline'
 
-function App() {
+const App = () => {
+  const audioRef = useRef()
+  const [isPause, setIsPause] = useState(true)
+  const handleClick = () => {
+    isPause ? audioRef.current.play() : audioRef.current.pause()
+    setIsPause(prev => !prev)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <>
+      <IconButton onClick={handleClick} variant="contained" color="primary">
+        {isPause ? (
+          <PlayCircleOutlineIcon fontSize="large" />
+        ) : (
+          <PauseCircleOutlineIcon fontSize="large" />
+        )}
+      </IconButton>
 
-export default App;
+      <audio
+        loop
+        src="./audio/test2.mp3"
+        ref={audioRef}
+        className="hide"
+      ></audio>
+    </>
+  )
+}
+export default App
