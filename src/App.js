@@ -1,11 +1,14 @@
 import React from 'react'
-import { SoundComponent } from './components/SoundComponet/SoundComponent'
+
 import { typeOfSound } from './constans'
+import { SoundComponent } from './components/SoundComponet/SoundComponent'
+import { CustomStepper } from './components/CustomStepper/CustomStepper'
 
 const App = () => {
   return (
       <>
-        <SoundComponent typeOfSound={typeOfSound.WHITE} />
+        {/* <SoundComponent typeOfSound={typeOfSound.WHITE} /> */}
+        <CustomStepper/>
       </>
   )
 }
