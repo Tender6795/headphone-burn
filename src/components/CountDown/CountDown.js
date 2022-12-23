@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from 'react'
+import { Button, ButtonGroup, IconButton, Grid } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import EditIcon from '@material-ui/icons/Edit'
 
-export const CountDown = ({ hours = 0, minutes = 0, seconds = 0 , startPauseMusic}) => {
+export const CountDown = ({
+  hours = 0,
+  minutes = 0,
+  seconds = 0,
+  startPauseMusic,
+}) => {
   const [paused, setPaused] = useState(true)
   const [over, setOver] = useState(false)
   const [[h, m, s], setTime] = useState([hours, minutes, seconds])
+  const classes = useStyles()
 
-  useEffect(()=>{
+  useEffect(() => {
     startPauseMusic(paused)
-  },[paused])
+  }, [paused])
 
   const tick = () => {
     if (paused || over) {
-        startPauseMusic(true)
-        return
+      startPauseMusic(true)
+      return
     }
 
     if (h === 0 && m === 0 && s === 0) {
@@ -37,19 +46,45 @@ export const CountDown = ({ hours = 0, minutes = 0, seconds = 0 , startPauseMusi
     return () => clearInterval(timerID)
   })
 
-const pauseHandle = () =>{
+  const pauseHandle = () => {
     setPaused(prev => !prev)
-}
+  }
   return (
-    <div>
-      <p>{`${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s
-        .toString()
-        .padStart(2, '0')}`}</p>
+    <>
+      <Grid container>
+        <Grid xs={9}>
+          <p>{`${h.toString().padStart(2, '0')}:${m
+            .toString()
+            .padStart(2, '0')}:${s.toString().padStart(2, '0')}`}</p>
+        </Grid>
+        <Grid xs={3}>
+          <IconButton>
+            <EditIcon />
+          </IconButton>
+        </Grid>
+      </Grid>
       <div>{over ? "Time's up!" : ''}</div>
-      <button onClick={pauseHandle}>
-        {paused ? 'Resume' : 'Pause'}
-      </button>
-      <button onClick={() => reset()}>Restart</button>
-    </div>
+      <ButtonGroup
+        variant="text"
+        color="primary"
+        aria-label="text primary button group"
+      >
+        <Button className={classes.button} onClick={pauseHandle}>
+          {paused ? 'Resume' : 'Pause'}
+        </Button>
+        <Button className={classes.button} onClick={() => reset()}>
+          Restart
+        </Button>
+      </ButtonGroup>
+    </>
   )
 }
+
+const useStyles = makeStyles({
+  button: {
+    width: '100px',
+  },
+  container: {
+    display: 'flex',
+  },
+})
