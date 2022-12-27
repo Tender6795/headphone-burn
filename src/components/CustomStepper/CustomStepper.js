@@ -1,36 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Stepper, Step, StepLabel, Button, Typography } from '@material-ui/core'
 import { Manual } from '../Manual/Manual'
 import { Settings } from '../Settings/Settings'
-
-//Name of staps
-function getSteps() {
-  return [
-    'Manual',
-    'Settings',
-    'Create an ad',
-  ]
-}
-
-//Steps Contents
-function getStepContent(stepIndex) {
-  switch (stepIndex) {
-    case 0:
-      return <Manual/>
-    case 1:
-      return <Settings/>
-    case 2:
-      return 'This is the bit I really care about!'
-    default:
-      return 'Unknown stepIndex'
-  }
-}
+import { Burning } from '../Burning/Burning'
+import { Advertising } from '../Advertising/Advertising'
+import { typeOfSound } from '../../constans'
 
 export function CustomStepper() {
   const classes = useStyles()
   const [activeStep, setActiveStep] = React.useState(0)
   const steps = getSteps()
+
+  let initialData = {}
+  Object.values(typeOfSound).forEach(item => {
+    initialData = { ...initialData, [item]: { isChecked: false, time: 1 } }
+  })
+
+  const [data, setData] = useState(initialData)
+  
+  function getSteps() {
+    return ['Manual', 'Settings', 'Small Advertisting', 'Burning']
+  }
+
+  //Steps Contents
+  function getStepContent(stepIndex) {
+    switch (stepIndex) {
+      case 0:
+        return <Manual />
+      case 1:
+        return <Settings data={data} setData={setData} />
+      case 2:
+        return <Advertising />
+      case 3:
+        return <Burning />
+      default:
+        return 'Unknown stepIndex'
+    }
+  }
 
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1)
@@ -97,8 +104,8 @@ const useStyles = makeStyles(theme => ({
   },
   pageContent: {
     minHeight: '350px',
-    backgroundColor:'#eee',
-    padding: '20px'
+    backgroundColor: '#eee',
+    padding: '20px',
   },
   backButton: {
     marginRight: theme.spacing(1),

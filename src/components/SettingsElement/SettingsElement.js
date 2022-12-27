@@ -3,10 +3,27 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Checkbox, FormControlLabel, Slider } from '@material-ui/core'
 import { DoneAllSharp, IndeterminateCheckBoxSharp } from '@material-ui/icons'
 
-export const SettingsElement = ({ name }) => {
+export const SettingsElement = ({ name, data, setData }) => {
   const classes = useStyles()
-  const [isChecked, setIsChecked] = useState(false)
-  const [value, setValue] = useState(1)
+  const checkboxHandle = e => {
+    setData({
+      ...data,
+      [name]: {
+        ...data[name],
+        isChecked: e.target.checked,
+      },
+    })
+  }
+
+  const sliderHandle = value => {
+    setData({
+      ...data,
+      [name]: {
+        ...data[name],
+        time: value,
+      },
+    })
+  }
 
   return (
     <div className={classes.container}>
@@ -16,8 +33,8 @@ export const SettingsElement = ({ name }) => {
             icon={<IndeterminateCheckBoxSharp />}
             checkedIcon={<DoneAllSharp color="primary" />}
             name={name}
-            checked={isChecked}
-            onChange={(e)=>setIsChecked(e.target.checked)}
+            checked={data[name].isChecked}
+            onChange={checkboxHandle}
           />
         }
         label={name}
@@ -29,9 +46,9 @@ export const SettingsElement = ({ name }) => {
         marks
         min={1}
         max={10}
-        disabled={!isChecked}
-        value={value}
-        onChange={(_,newValue)=>setValue(newValue)}
+        disabled={!data[name].isChecked}
+        value={data[name].time}
+        onChange={(_, newValue) => sliderHandle(newValue)}
       />
     </div>
   )
