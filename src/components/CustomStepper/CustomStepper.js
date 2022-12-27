@@ -1,18 +1,14 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import {
-  Stepper,
-  Step,
-  StepLabel,
-  Button,
-  Typography,
-} from '@material-ui/core'
+import { Stepper, Step, StepLabel, Button, Typography } from '@material-ui/core'
+import { Manual } from '../Manual/Manual'
+import { Settings } from '../Settings/Settings'
 
 //Name of staps
 function getSteps() {
   return [
-    'Select master blaster campaign settings',
-    'Create an ad group',
+    'Manual',
+    'Settings',
     'Create an ad',
   ]
 }
@@ -21,9 +17,9 @@ function getSteps() {
 function getStepContent(stepIndex) {
   switch (stepIndex) {
     case 0:
-      return 'Select campaign settings...111111111111111'
+      return <Manual/>
     case 1:
-      return 'What is an ad group anyways?'
+      return <Settings/>
     case 2:
       return 'This is the bit I really care about!'
     default:
@@ -66,10 +62,10 @@ export function CustomStepper() {
             <Button onClick={handleReset}>Reset</Button>
           </div>
         ) : (
-          <div>
-            <Typography className={classes.instructions}>
+          <div className={classes.pageContainer}>
+            <div className={classes.pageContent}>
               {getStepContent(activeStep)}
-            </Typography>
+            </div>
             <div>
               <Button
                 disabled={activeStep === 0}
@@ -91,7 +87,18 @@ export function CustomStepper() {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: '100%',
+    padding: '10px 20px',
+  },
+  pageContainer: {
+    display: 'flex',
+    height: '100%',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  pageContent: {
+    minHeight: '350px',
+    backgroundColor:'#eee',
+    padding: '20px'
   },
   backButton: {
     marginRight: theme.spacing(1),
