@@ -41,7 +41,7 @@ export const SettingsElement = ({ name, data, setData }) => {
       />
       <Slider
         aria-labelledby="discrete-slider"
-        valueLabelDisplay="auto"
+        valueLabelDisplay="on"
         step={1}
         marks
         min={1}

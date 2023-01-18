@@ -1,7 +1,7 @@
 import React from 'react'
 
-export const Burning = () => {
+export const Burning = ({data}) => {
   return (
-    <div>Burning</div>
+    <div>{JSON.stringify(data)}</div>
   )
 }

@@ -1,5 +1,4 @@
 import React from 'react'
-import { typeOfSound } from '../../constans'
 import { SettingsElement } from '../SettingsElement/SettingsElement'
 
 export const Settings = ({ data, setData }) => {

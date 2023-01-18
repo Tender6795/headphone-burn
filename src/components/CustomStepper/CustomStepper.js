@@ -6,6 +6,7 @@ import { Settings } from '../Settings/Settings'
 import { Burning } from '../Burning/Burning'
 import { Advertising } from '../Advertising/Advertising'
 import { typeOfSound } from '../../constans'
+import { isAnySelectedCheck } from '../../helper'
 
 export function CustomStepper() {
   const classes = useStyles()
@@ -18,7 +19,7 @@ export function CustomStepper() {
   })
 
   const [data, setData] = useState(initialData)
-  
+
   function getSteps() {
     return ['Manual', 'Settings', 'Small Advertisting', 'Burning']
   }
@@ -33,7 +34,7 @@ export function CustomStepper() {
       case 2:
         return <Advertising />
       case 3:
-        return <Burning />
+        return <Burning data={data}/>
       default:
         return 'Unknown stepIndex'
     }
@@ -51,6 +52,10 @@ export function CustomStepper() {
     setActiveStep(0)
   }
 
+  const isValidNextButton = () =>{
+    if(activeStep!==1) return true
+    return isAnySelectedCheck(data) 
+  }
   return (
     <div className={classes.root}>
       <Stepper activeStep={activeStep} alternativeLabel>
@@ -81,7 +86,7 @@ export function CustomStepper() {
               >
                 Back
               </Button>
-              <Button variant="contained" color="primary" onClick={handleNext}>
+              <Button variant="contained" color="primary" onClick={handleNext} disabled={!isValidNextButton()}>
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
               </Button>
             </div>
