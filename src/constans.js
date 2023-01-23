@@ -2,5 +2,5 @@ export const typeOfSound = {
   WHITE: 'white',
   PINK: 'pink',
   BRAWN: 'brown',
-  GREY: 'grey',
+  // GREY: 'grey', нету
 }
