@@ -8,22 +8,26 @@ export const CountDown = ({
   minutes = 0,
   seconds = 0,
   startPauseMusic,
+  isPause,
+  soundStopHanldeSoundComponent,
 }) => {
-  const [paused, setPaused] = useState(true)
+  const [paused, setPaused] = useState(isPause)
   const [over, setOver] = useState(false)
   const [[h, m, s], setTime] = useState([hours, minutes, seconds])
-  const classes = useStyles()
+  // const classes = useStyles()
 
   useEffect(() => {
     startPauseMusic(paused)
   }, [paused])
 
   const tick = () => {
-    if (paused || over) {
+    // if (paused || over) {
+    if (over) {
       startPauseMusic(true)
+      setPaused(true)
+      soundStopHanldeSoundComponent()
       return
     }
-
     if (h === 0 && m === 0 && s === 0) {
       setOver(true)
     } else if (m === 0 && s === 0) {
@@ -35,23 +39,23 @@ export const CountDown = ({
     }
   }
 
-  const reset = () => {
-    setTime([parseInt(hours), parseInt(minutes), parseInt(seconds)])
-    setPaused(false)
-    setOver(false)
-  }
+  // const reset = () => {
+  //   setTime([parseInt(hours), parseInt(minutes), parseInt(seconds)])
+  //   setPaused(false)
+  //   setOver(false)
+  // }
 
   useEffect(() => {
     const timerID = setInterval(() => tick(), 1000)
     return () => clearInterval(timerID)
   })
 
-  const pauseHandle = () => {
-    setPaused(prev => !prev)
-  }
+  // const pauseHandle = () => {
+  //   setPaused(prev => !prev)
+  // }
   return (
     <>
-      <Grid container>
+      {/* <Grid container>
         <Grid xs={9}>
           <p>{`${h.toString().padStart(2, '0')}:${m
             .toString()
@@ -75,16 +79,16 @@ export const CountDown = ({
         <Button className={classes.button} onClick={() => reset()}>
           Restart
         </Button>
-      </ButtonGroup>
+      </ButtonGroup> */}
     </>
   )
 }
 
-const useStyles = makeStyles({
-  button: {
-    width: '100px',
-  },
-  container: {
-    display: 'flex',
-  },
-})
+// const useStyles = makeStyles({
+//   button: {
+//     width: '100px',
+//   },
+//   container: {
+//     display: 'none',
+//   },
+// })

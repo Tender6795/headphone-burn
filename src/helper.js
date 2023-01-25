@@ -14,3 +14,32 @@ export const onlyCheckedData = obj => {
   })
   return newObj
 }
+
+export const addPauseProps = obj =>{
+    let newObj = {}
+    Object.keys(obj).forEach((item,index) => {
+        newObj={
+            ...newObj,
+            [item]: {
+                ...obj[item],
+                isPause: !!index
+            }
+        }
+    })
+    return newObj
+} 
+
+export const objWithNonPause = obj =>{
+    let newObj = {}
+    Object.keys(obj).forEach((item) => {
+        if(!obj[item].isPause)
+        newObj={
+            [item] :obj[item]
+        }
+    })
+    return newObj
+}
+
+export const isEmptyObj = obj =>{
+    return !!Object.keys(obj).length;
+} 
