@@ -1,7 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-// import { Card, CardContent, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-
 import { CountDown } from '../CountDown/CountDown'
 
 export const SoundComponent = ({ typeOfSound, data, soundStopHanlde }) => {
@@ -11,25 +9,18 @@ export const SoundComponent = ({ typeOfSound, data, soundStopHanlde }) => {
 
   const startPauseMusic = isPauseData => {
     isPauseData ? audioRef.current.pause() : audioRef.current.play()
-    // soundStopHanlde(typeOfSound, isPauseData)
   }
   useEffect(() => {
     isPause ? audioRef.current.pause() : audioRef.current.play()
   }, [isPause])
 
-  const soundStopHanldeSoundComponent =()=>{
+  const soundStopHanldeSoundComponent = () => {
     soundStopHanlde(typeOfSound)
   }
   return (
-    // <Card className={classes.root}>
-    //   <CardContent>
-    //     <Typography className={classes.title} variant="h2">
-    //       {typeOfSound.toUpperCase() + " SOUND"}
-    //     </Typography>
     <>
       <CountDown
-        // hours={time}
-        seconds={time}
+        hours={time}
         startPauseMusic={startPauseMusic}
         className={classes.hide}
         isPause={isPause}
@@ -42,8 +33,6 @@ export const SoundComponent = ({ typeOfSound, data, soundStopHanlde }) => {
         className={classes.hide}
       />
     </>
-    //   {/* </CardContent>
-    // </Card> */}
   )
 }
 

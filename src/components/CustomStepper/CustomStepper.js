@@ -24,7 +24,6 @@ export function CustomStepper() {
     return ['Manual', 'Settings', 'Small Advertisting', 'Burning']
   }
 
-  //Steps Contents
   function getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
@@ -34,7 +33,7 @@ export function CustomStepper() {
       case 2:
         return <Advertising />
       case 3:
-        return <Burning data={data}/>
+        return <Burning data={data} />
       default:
         return 'Unknown stepIndex'
     }
@@ -52,9 +51,9 @@ export function CustomStepper() {
     setActiveStep(0)
   }
 
-  const isValidNextButton = () =>{
-    if(activeStep!==1) return true
-    return isAnySelectedCheck(data) 
+  const isValidNextButton = () => {
+    if (activeStep !== 1) return true
+    return isAnySelectedCheck(data)
   }
   return (
     <div className={classes.root}>
@@ -67,11 +66,15 @@ export function CustomStepper() {
       </Stepper>
       <div>
         {activeStep === steps.length ? (
-          <div>
-            <Typography className={classes.instructions}>
-              All steps completed
-            </Typography>
-            <Button onClick={handleReset}>Reset</Button>
+          <div className={classes.pageContainer}>
+            <div className={classes.pageContent}>
+              <h1>All is ready )</h1>
+            </div>
+            <div>
+              <Button onClick={handleReset} variant="contained" color="primary">
+                Reset
+              </Button>
+            </div>
           </div>
         ) : (
           <div className={classes.pageContainer}>
@@ -86,9 +89,15 @@ export function CustomStepper() {
               >
                 Back
               </Button>
-              <Button variant="contained" color="primary" onClick={handleNext} disabled={!isValidNextButton()}>
-                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-              </Button>
+
+              {activeStep !== steps.length - 1 && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleNext}
+                  disabled={!isValidNextButton()}
+                >Next</Button>
+              )}
             </div>
           </div>
         )}

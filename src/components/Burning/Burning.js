@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
-import { addPauseProps, isEmptyObj, objWithNonPause, onlyCheckedData } from '../../helper'
-import ProgressElement from '../ProgressElement/ProgressElement'
+import {
+  addPauseProps,
+  isEmptyObj,
+  objWithNonPause,
+  onlyCheckedData,
+} from '../../helper'
+import { CustomLoader } from '../CustomLoader/CustomLoader'
 import { SoundComponent } from '../SoundComponet/SoundComponent'
 
 export const Burning = ({ data }) => {
@@ -15,14 +20,13 @@ export const Burning = ({ data }) => {
   }
 
   const onlyNoPause = objWithNonPause(dataToBurn)
-  
 
   return (
     <div>
       {isEmptyObj(onlyNoPause) ? (
         Object.keys(onlyNoPause).map(item => (
           <React.Fragment key={item}>
-            <ProgressElement name={item} data={dataToBurn} />
+            <CustomLoader typeOfSound={item} />
             <SoundComponent
               typeOfSound={item}
               data={dataToBurn[item]}
@@ -31,7 +35,7 @@ export const Burning = ({ data }) => {
           </React.Fragment>
         ))
       ) : (
-        <h1>is done</h1>
+        <h1 className="container">is done</h1>
       )}
     </div>
   )
