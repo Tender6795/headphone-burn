@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Checkbox, FormControlLabel, Slider } from '@material-ui/core'
 import { DoneAllSharp, IndeterminateCheckBoxSharp } from '@material-ui/icons'

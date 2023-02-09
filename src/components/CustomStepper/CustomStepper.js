@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Stepper, Step, StepLabel, Button, Typography } from '@material-ui/core'
+import { Stepper, Step, StepLabel, Button } from '@material-ui/core'
 import { Manual } from '../Manual/Manual'
 import { Settings } from '../Settings/Settings'
 import { Burning } from '../Burning/Burning'
